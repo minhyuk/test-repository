@@ -17,7 +17,7 @@
 						<div class="text-center">
 							<img
 								class="img-fluid"
-								src="/static/images/splash-screen-1.webp"
+								src="https://via.placeholder.com/740"
 								alt=""
 							/>
 						</div>
@@ -31,7 +31,7 @@
 						</div>
 						<div class="d-grid">
 							<a
-								href="authentication-splash-2.html"
+								href="{% url 'common:login' %}"
 								class="btn btn-dark btn-ecomm rounded-3"
 								>Get Started</a
 							>
@@ -44,10 +44,6 @@
 		<!--end wrapper-->
 
 		<!--JS Files-->
-		<script src="/static/js/bootstrap.bundle.min.js"></script>
-		<script src="/static/js/jquery.min.js"></script>
-		<script src="/static/js/cookies-theme-switcher.js"></script>
-
-		<script src="/static/js/loader.js"></script>
+		{% include "../_scripts.html" %}
 	</body>
 </html>
