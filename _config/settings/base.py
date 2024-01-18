@@ -49,7 +49,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "home.apps.HomeConfig",
     "common.apps.CommonConfig",
-    "medass.apps.MedassConfig",
+    "session.apps.SessionConfig",
     "board.apps.BoardConfig",
 ]
 
