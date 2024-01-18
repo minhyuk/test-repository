@@ -3,7 +3,8 @@
 	<head>
 		{% include "../_head.html" %}
 	</head>
-	<body>
+
+	<body class="splash-bg-2">
 		<!--page loader-->
 		<div class="loader-wrapper">{% include "../_loader.html" %}</div>
 		<!--end loader-->
@@ -12,28 +13,27 @@
 		<div class="wrapper">
 			<!--start to page content-->
 			<div class="page-content">
-				<div class="card rounded-0 border-0">
-					<div class="card-body p-0">
-						<div class="text-center">
-							<img
-								class="img-fluid"
-								src="/static/images/splash-screen-1.webp"
-								alt=""
-							/>
-						</div>
-
-						<div class="text-center my-4">
-							<h5 class="text-dark fw-bold">We Promis Productivity</h5>
-							<p class="mb-0">
+				<div
+					class="card rounded-0 bg-transparent position-absolute fixed-bottom m-3 border-0"
+				>
+					<div class="card-body">
+						<div class="text-center my-5">
+							<h5 class="text-white fw-bold">Enjoy your shopping with us</h5>
+							<p class="mb-0 text-white">
 								At vero eos et accusamus et iusto odio dignissimos ducimus qui
 								blanditiis
 							</p>
 						</div>
-						<div class="d-grid">
+						<div class="d-grid gap-3">
 							<a
-								href="authentication-splash-2.html"
-								class="btn btn-dark btn-ecomm rounded-3"
-								>Get Started</a
+								href="authentication-log-in.html"
+								class="btn btn-ecomm bg-white border-white rounded-3"
+								>Log In</a
+							>
+							<a
+								href="authentication-sign-up.html"
+								class="btn btn-ecomm bg-transparent border-white text-white rounded-3"
+								>Sign Up</a
 							>
 						</div>
 					</div>
@@ -45,9 +45,8 @@
 
 		<!--JS Files-->
 		<script src="/static/js/bootstrap.bundle.min.js"></script>
-		<script src="/static/js/jquery.min.js"></script>
-		<script src="/static/js/cookies-theme-switcher.js"></script>
 
+		<script src="/static/js/jquery.min.js"></script>
 		<script src="/static/js/loader.js"></script>
 	</body>
 </html>

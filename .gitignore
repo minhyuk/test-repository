@@ -21,3 +21,6 @@ db.sqlite3
 # Private Files
 _media/
 _static/admin/
+
+# Unused Files
+*_legacy/
