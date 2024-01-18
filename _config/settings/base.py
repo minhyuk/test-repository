@@ -115,7 +115,7 @@ LOGOUT_REDIRECT_URL = "/"
 
 # Internationalization
 
-LANGUAGE_CODE = "ko-kr"
+LANGUAGE_CODE = "en-us"
 
 TIME_ZONE = "Asia/Seoul"
 
