@@ -1,4 +1,4 @@
 from django.contrib import admin
-from .models import MedassData
+from .models import RespiratoryGraphData
 
-admin.site.register(MedassData)
+admin.site.register(RespiratoryGraphData)

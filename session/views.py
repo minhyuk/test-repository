@@ -7,13 +7,17 @@ from django.core.files.base import ContentFile
 from django.core.paginator import Paginator
 
 from _config.utils import uuid_filepath
-from .models import MedassData
+from .models import RespiratoryGraphData
 
 
-def medass_index(request):
+def index(request):
+    return render(request, "session/index.html")
+
+
+def rg_record(request):
     if request.method == "POST":
         if request.user.is_authenticated:
-            data = MedassData()
+            data = RespiratoryGraphData()
 
             # Write user and time
             data.user = request.user
@@ -32,11 +36,11 @@ def medass_index(request):
             # Save into model
             data.save()
 
-    return render(request, "medass/medass-index.html")
+    return render(request, "session/rg-record.html")
 
 
 @login_required(login_url="common:login")
-def medass_inquiry(request, username):
+def rg_inquiry(request, username):
     user = User.objects.get(username=username)
 
     # Process inquiry only if user matches
@@ -48,10 +52,12 @@ def medass_inquiry(request, username):
 
         # Load all data if user is staff
         if user.is_staff:
-            raw_data_list = MedassData.objects.all().order_by("-date_created")
+            raw_data_list = RespiratoryGraphData.objects.all().order_by("-date_created")
         # If not, load user data only
         else:
-            raw_data_list = MedassData.objects.filter(user=user).order_by("-date_created")
+            raw_data_list = RespiratoryGraphData.objects.filter(user=user).order_by(
+                "-date_created"
+            )
 
         # Paginate raw datas
         page = request.GET.get("page", 1)
@@ -81,7 +87,7 @@ def medass_inquiry(request, username):
             "data_list": data_list,
             "page_obj": raw_data_list,
         }
-        return render(request, "medass/medass-inquiry.html", context)
+        return render(request, "session/rg-inquiry.html", context)
 
     # Respond to (403)Forbidden if user does not match
     return HttpResponse(status=403)
@@ -89,7 +95,7 @@ def medass_inquiry(request, username):
 
 @login_required(login_url="common:login")
 def medass_delete(request, id):
-    target_data = MedassData.objects.get(id=id)
+    target_data = RespiratoryGraphData.objects.get(id=id)
 
     # Process delete only if user matches
     if target_data.user == request.user:

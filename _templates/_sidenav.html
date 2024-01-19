@@ -8,7 +8,7 @@
 		<div class="hstack gap-3">
 			<div class="">
 				<img
-					src="https://via.placeholder.com/110X110"
+					src="{{user.userprofile.image}}"
 					width="45"
 					class="rounded-3 p-1 bg-white"
 					alt=""
@@ -29,9 +29,7 @@
 				/>
 			</div>
 			<div class="details">
-				<h6 class="mb-0 text-white">
-					Login First
-				</h6>
+				<h6 class="mb-0 text-white">Login First</h6>
 			</div>
 		</div>
 		{% endif %}
@@ -73,7 +71,9 @@
 						Meditation
 					</a>
 					<ul>
-						<li><a href="javascript:;">Respiratory Graph</a></li>
+						<li>
+							<a href="{% url 'session:rg-record' %}">Respiratory Graph</a>
+						</li>
 						<li><a href="javascript:;">Sustained Attention</a></li>
 					</ul>
 				</li>
