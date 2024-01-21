@@ -28,7 +28,7 @@ urlpatterns = [
     path('common/', include('common.urls')),
 
     # User Purpose Application
-    path('medass/', include('medass.urls')),
+    path('session/', include('session.urls')),
     path('board/', include('board.urls'))
 ]
 

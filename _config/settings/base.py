@@ -49,7 +49,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "home.apps.HomeConfig",
     "common.apps.CommonConfig",
-    "medass.apps.MedassConfig",
+    "session.apps.SessionConfig",
     "board.apps.BoardConfig",
 ]
 
@@ -115,7 +115,7 @@ LOGOUT_REDIRECT_URL = "/"
 
 # Internationalization
 
-LANGUAGE_CODE = "ko-kr"
+LANGUAGE_CODE = "en-us"
 
 TIME_ZONE = "Asia/Seoul"
 

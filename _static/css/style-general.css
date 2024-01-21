@@ -1,9 +1,0 @@
-* {
-    font-family: 'Pretendard', 'Arial', 'sans-serif';
-}
-
-/* Scroll limit for mobile device */
-html, body {
-    overflow-x: hidden;
-	overscroll-behavior: none;
-}
