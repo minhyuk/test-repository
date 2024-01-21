@@ -10,21 +10,23 @@ const recordedData = [];
 
 const stopwatch = document.getElementById("stopwatch");
 const startStopButton = document.getElementById("startStopButton");
-const saveButton = document.getElementById("saveButton")
-const csvInput = document.getElementById("csvInput")
+const saveButton = document.getElementById("saveButton");
+const discardButton = document.getElementById("discardButton");
+const csvInput = document.getElementById("csvInput");
+const timeInput = document.getElementById("timeInput");
 
 function formatTime(milliseconds) {
     const seconds = milliseconds / 1000;
     const minutes = Math.floor(seconds / 60);
     const remainingSeconds = (seconds % 60).toFixed(2);
-    return `${minutes}:${remainingSeconds}`;
+    return `${seconds.toFixed(2)}`;
 }
 
 startStopButton.addEventListener("click", () => {
-    console.log(recording);
     if (recording) {
         const csvContent = recordedData.map(data => data.join(",")).join("\n");
         csvInput.value = encodeURI(csvContent);
+        timeInput.value = stopwatch.innerText;
 
         clearInterval(stopwatchInterval);
         startStopButton.innerText = "Start Recording";
@@ -45,7 +47,7 @@ startStopButton.addEventListener("click", () => {
             let time = (stopwatchTime / 1000).toFixed(2);
             let value = slider.value;
 
-            stopwatch.innerText = time;
+            stopwatch.innerText = formatTime(stopwatchTime);
 
             timeList.push(time);
             valueList.push(value);
@@ -60,6 +62,10 @@ startStopButton.addEventListener("click", () => {
         }
     }
     recording = !recording;
+});
+
+discardButton.addEventListener("click", () => {
+    stopwatch.innerText = "0.00";
 });
 
 var modalChart;
