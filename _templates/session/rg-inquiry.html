@@ -1,50 +1,147 @@
-{% extends "_base.html" %}
-{% block contents %}
-<h2 class="mb-3">Graph Lists</h2>
+{% extends "_base.html" %} {% block contents %}
+<h2 class="mb-3 fw-bold">Chart Records</h2>
 <div class="row row-cols-1 g-3">
 	{% for data, csv_x_data, csv_y_data in data_list %}
 	<div class="col">
-		<div class="card rounded-3 mb-0">
-				<div class="card-body">
-					<div
-						class="d-flex flex-row align-items-center justify-content-between gap-1"
-					>
+		<div class="card rounded-3">
+			<div class="card-body">
+				<div
+					class="d-flex flex-row align-items-center justify-content-between gap-1"
+				>
 					<div>
-						<div>
-							<span class="h5 fw-bold">#{{data.id}} </span>
-							<span class="p">by {{data.user}}</span>
+						<div class="card-title">
+							<h5 class="fw-bold">#{{data.id|stringformat:"03d"}}</h5>
 						</div>
+						<div class="card-subtitle mb-2 text-body-secondary">
+							by {{data.user}}
+						</div>
+						<p class="card-text">{{data.date_created|date:"Y-m-d G:i:s"}}</p>
 						<div>
-							{{data.date_created}}
+							<button
+								type="button"
+								class="btn btn-primary"
+								data-bs-toggle="modal"
+								data-bs-target="#modal-{{forloop.counter}}"
+								style="
+									--bs-btn-padding-y: 0.25rem;
+									--bs-btn-padding-x: 0.5rem;
+									--bs-btn-font-size: 0.75rem;
+								"
+							>
+								Details
+							</button>
+							{% if data.user == user %}
+							<a
+								role="button"
+								href="{% url 'session:rg-delete' data.id %}"
+								class="btn btn-danger"
+								style="
+									--bs-btn-padding-y: 0.25rem;
+									--bs-btn-padding-x: 0.5rem;
+									--bs-btn-font-size: 0.75rem;
+								"
+							>
+								Delete
+							</a>
+							{% endif %}
 						</div>
 					</div>
-					<div class="w-auto h-auto">
-						<canvas 
-						class="col-8"
-						id="plotting-{{forloop.counter}}"
-						></canvas>
+					<div
+						class="mx-5"
+						style="font-size: xx-large"
+					>
+						{% comment %} data goes here {% endcomment %}
 					</div>
-					<input 
-					type="text" 
-					id="csvInput-x-{{forloop.counter}}"
-					name="csv_input"
-					value="{{csv_x_data}}"
-					style="display: none;"
-					>
-					<input 
-					type="text" 
-					id="csvInput-y-{{forloop.counter}}"
-					name="csv_input"
-					value="{{csv_y_data}}"
-					style="display: none;"
-					>
+					<input
+						type="text"
+						id="csvInput-x-{{forloop.counter}}"
+						name="csv_input"
+						value="{{csv_x_data}}"
+						style="display: none"
+					/>
+					<input
+						type="text"
+						id="csvInput-y-{{forloop.counter}}"
+						name="csv_input"
+						value="{{csv_y_data}}"
+						style="display: none"
+					/>
+				</div>
+			</div>
+			<!-- Modal -->
+			<div
+				class="modal fade"
+				id="modal-{{forloop.counter}}"
+				data-bs-backdrop="static"
+				data-bs-keyboard="false"
+				tabindex="-1"
+				aria-labelledby="staticBackdropLabel"
+				aria-hidden="true"
+			>
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h1
+								class="modal-title fw-bold fs-5"
+								id="staticBackdropLabel"
+							>
+								Chart #{{data.id|stringformat:"03d"}}
+							</h1>
+							<button
+								type="button"
+								class="btn-close"
+								data-bs-dismiss="modal"
+								aria-label="Close"
+							></button>
+						</div>
+						<div class="modal-body">
+							<h5 class="fw-bold mt-2">Respiration Graph</h5>
+							<div class="w-auto h-auto">
+								<canvas id="plotting-{{forloop.counter}}"></canvas>
+							</div>
+							<h5 class="fw-bold mt-2">Respiration Information</h5>
+							<p>
+								User: {{data.user}}<br />
+								Date: {{data.date_created|date:"Y-m-d G:i:s"}}<br />
+								Length: {{csv_x_data|last|stringformat:"1d"}} seconds<br />
+								Score: {{data.score}} points
+							</p>
+							<h5 class="fw-bold mt-2">Analysis</h5>
+							<p>Not yet available</p>
+							<h5 class="fw-bold mt-2">Note</h5>
+							<p>{{data.note|default:"Nothing"}}</p>
+						</div>
+						<div class="modal-footer">
+							<a
+								class="btn btn-primary"
+								id="imageDownload-{{forloop.counter}}"
+								style="
+									--bs-btn-padding-y: 0.25rem;
+									--bs-btn-padding-x: 0.5rem;
+									--bs-btn-font-size: 0.75rem;
+								"
+							>
+								Save Chart
+							</a>
+							<button
+								type="button"
+								class="btn btn-secondary"
+								data-bs-toggle="modal"
+								style="
+									--bs-btn-padding-y: 0.25rem;
+									--bs-btn-padding-x: 0.5rem;
+									--bs-btn-font-size: 0.75rem;
+								"
+							>
+								Close
+							</button>
+						</div>
 					</div>
 				</div>
 			</div>
+		</div>
 	</div>
-	{% endfor %}
-</div>
-	{% endblock contents %} {% block scripts %}
+	{% endfor %} {% endblock contents %} {% block scripts %}
 	<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 	<script src="/static/js/session/rg-inquiry.js"></script>
 	{% endblock %}
