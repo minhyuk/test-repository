@@ -50,7 +50,7 @@ startStopButton.addEventListener("click", () => {
             timeList.push(time);
             valueList.push(value);
             recordedData.push([time, value]);
-        }, 10);
+        }, 50);
 
         startStopButton.innerText = "Stop Recording";
         saveButton.disabled = true;
