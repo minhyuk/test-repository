@@ -8,6 +8,7 @@ from django.core.paginator import Paginator
 
 from _config.utils import uuid_filepath
 
+from .forms import RespiratoryGraphForm
 from .models import MultiplyerData, RespiratoryGraphData, SustainedAttentionData
 
 
@@ -15,19 +16,23 @@ def index(request):
     return render(request, "session/index.html")
 
 
+@login_required(login_url="common:login")
 def rg_record(request):
     if request.method == "POST":
-        if request.user.is_authenticated:
+        form = RespiratoryGraphForm(request.POST)
+
+        if form.is_valid():
+            # Create new data object
             rg_obj = RespiratoryGraphData()
 
             # Write user and time
             rg_obj.user = request.user
             rg_obj.date_created = timezone.now()
 
-            # Retrieve data from request
-            csv_input = request.POST["csv_input"]
-            time_input = request.POST["time_input"]
-            note_input = request.POST["note_input"]
+            # Retrieve data from form
+            csv_input = form.cleaned_data["csv_input"]
+            time_input = form.cleaned_data["time_input"]
+            note_input = form.cleaned_data["note_input"]
 
             # Write CSV data
             from urllib.parse import unquote
@@ -48,7 +53,7 @@ def rg_record(request):
 
             time_now = datetime.now()
             time_yesterday = time_now - timedelta(days=1)
-            
+
             time_pivot_yd = datetime.combine(time_yesterday.date(), time(17, 0))
             time_pivot_am = datetime.combine(time_now.date(), time(5, 0))
             time_pivot_pm = datetime.combine(time_now.date(), time(17, 0))
@@ -63,30 +68,30 @@ def rg_record(request):
             elif time_now != time_pivot_yd:
                 mul_obj.daily_datetime = time_pivot_yd
                 mul_obj.daily_tokens = 900
-                
+
             # Update hourly multiplyer
             if time_now - mul_obj.hourly_datetime > timedelta(hours=1):
                 mul_obj.hourly_datetime = time_now
                 mul_obj.hourly_tokens = 300
-            
+
             # Calculate multiplied score
             score = 0
             tokens_required = int(float(time_input))
-            
+
             # Use hourly tokens
             tokens_used = min(tokens_required, mul_obj.hourly_tokens)
-            score += tokens_used * (1/6) * 3
+            score += tokens_used * (1 / 6) * 3
             tokens_required -= tokens_used
             mul_obj.hourly_tokens -= tokens_used
-            
+
             # Use daily tokens
             tokens_used = min(tokens_required, mul_obj.daily_tokens)
-            score += tokens_used * (1/6) * 3
+            score += tokens_used * (1 / 6) * 3
             tokens_required -= tokens_used
             mul_obj.daily_tokens -= tokens_used
-            
+
             # Add remainder
-            score += tokens_required * (1/6)
+            score += tokens_required * (1 / 6)
 
             # Write score data
             rg_obj.score = score
@@ -98,7 +103,11 @@ def rg_record(request):
             mul_obj.save()
             rg_obj.save()
 
-    return render(request, "session/rg-record.html")
+            return redirect("session:rg-record")
+
+    form = RespiratoryGraphForm()
+    context = {"form": form}
+    return render(request, "session/rg-record.html", context)
 
 
 @login_required(login_url="common:login")
