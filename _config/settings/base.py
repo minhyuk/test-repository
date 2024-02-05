@@ -41,14 +41,17 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    # System Application
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    # General Purpose Application
+    "common.apps.CommonConfig",    
+    # Applications
     "home.apps.HomeConfig",
-    "common.apps.CommonConfig",
     "session.apps.SessionConfig",
     "board.apps.BoardConfig",
 ]
