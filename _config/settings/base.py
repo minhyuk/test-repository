@@ -14,7 +14,7 @@ Then you can freely override the configuration.
 
 Configured by killerwhalee
 
-Github: https://github.com/killerwhalee/ccs-kaist
+Github: https://github.com/killerwhalee/healingmentor
 
 """
 
@@ -188,9 +188,9 @@ LOGGING = {
             "level": "INFO",
             "filters": ["require_debug_false"],
             "class": "logging.handlers.RotatingFileHandler",
-            "filename": BASE_DIR / "_logs/mysite.log",
-            "maxBytes": 1024 * 1024 * 1024,  # 1 GB
-            "backupCount": 5,
+            "filename": BASE_DIR / "_logs/site.log",
+            "maxBytes": 64 * 1024 * 1024,  # 64 MB
+            "backupCount": 100,
             "formatter": "standard",
         },
     },
