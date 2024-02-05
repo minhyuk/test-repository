@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		{% include "../_head.html" %}
+		{% include "_head.html" %}
 	</head>
 
 	<body>
 		<!--page loader-->
-		<div class="loader-wrapper">{% include "../_loader.html" %}</div>
+		<div class="loader-wrapper">{% include "_loader.html" %}</div>
 		<!--end loader-->
 
 		<!--start wrapper-->
@@ -33,17 +33,22 @@
 			<div class="page-content">
 				<div class="login-body">
 					<h5 class="fw-bold">Getting Started</h5>
-					<p class="mb-0">Create an account to continue your all shopping</p>
-					<form class="mt-4">
+					<p class="mb-0">Be the proud member of Healing Mentor!</p>
+					<form
+						class="mt-4"
+						method="post"
+						action="{% url 'common:signup' %}"
+					>
+						{% csrf_token %} {% include "_form_errors.html" %}
 						<div class="form-floating mb-3">
 							<input
-								type="email"
+								type="text"
 								class="form-control rounded-3"
-								id="floatingInputName"
-								placeholder="Enter Name"
-								value="Jhon Deo"
+								id="floatingInputUsername"
+								name="username"
+								placeholder="Enter Username"
 							/>
-							<label for="floatingInputName">Name</label>
+							<label for="floatingInputName">Username</label>
 						</div>
 
 						<div class="form-floating mb-3">
@@ -51,8 +56,8 @@
 								type="email"
 								class="form-control rounded-3"
 								id="floatingInputEmail"
+								name="email"
 								placeholder="name@example.com"
-								value="name@example.com"
 							/>
 							<label for="floatingInputEmail">Email</label>
 						</div>
@@ -66,8 +71,8 @@
 									type="password"
 									class="form-control rounded-3 border-end-0 rounded-end-0"
 									id="floatingInputPassword"
+									name="password1"
 									placeholder="Enter Password"
-									value="password123"
 								/>
 								<label for="floatingInputPassword">Password</label>
 							</div>
@@ -77,7 +82,29 @@
 							></span>
 						</div>
 
-						<div class="mb-3">
+						<div
+							class="input-group mb-3"
+							id="show_hide_password"
+						>
+							<div class="form-floating flex-grow-1">
+								<input
+									type="password"
+									class="form-control rounded-3 border-end-0 rounded-end-0"
+									id="floatingInputConfirmPassword"
+									name="password2"
+									placeholder="Enter Password"
+								/>
+								<label for="floatingInputConfirmPassword"
+									>Confirm Password</label
+								>
+							</div>
+							<span
+								class="input-group-text bg-transparent rounded-3 rounded-start-0"
+								><i class="bi bi-eye-slash"></i
+							></span>
+						</div>
+
+						<!-- <div class="mb-3">
 							<div class="form-check">
 								<input
 									class="form-check-input"
@@ -92,41 +119,15 @@
 									I agree to Terms and Conditions
 								</label>
 							</div>
-						</div>
+						</div> -->
 
 						<div class="mb-0 d-grid">
-							<a
-								href="index.html"
+							<button
+								type="submit"
 								class="btn btn-dark btn-ecomm rounded-3"
-								>Sign Up</a
 							>
-						</div>
-						<div class="separator my-4">
-							<div class="line"></div>
-							<p class="mb-0 fw-bold px-3">Or</p>
-							<div class="line"></div>
-						</div>
-						<div
-							class="social-login d-flex flex-row gap-2 justify-content-center"
-						>
-							<a
-								href="javascript:;"
-								class="bg-facebook"
-							>
-								<i class="bi bi-facebook"></i>
-							</a>
-							<a
-								href="javascript:;"
-								class="bg-pinterest"
-							>
-								<i class="bi bi-google"></i>
-							</a>
-							<a
-								href="javascript:;"
-								class="bg-linkedin"
-							>
-								<i class="bi bi-linkedin"></i>
-							</a>
+								Register
+							</button>
 						</div>
 					</form>
 				</div>
@@ -140,7 +141,7 @@
 				<p class="mb-0 rounded-0">
 					Already have an account?
 					<a
-						href="authentication-log-in.html"
+						href="{% url 'common:login' %}"
 						class="text-danger"
 						>Log In</a
 					>
@@ -151,6 +152,6 @@
 		<!--end wrapper-->
 
 		<!--JS Files-->
-		{% include "../_scripts.html" %}
+		{% include "_scripts.html" %}
 	</body>
 </html>

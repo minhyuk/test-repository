@@ -12,7 +12,6 @@ urlpatterns = [
     # Signup
     path('signup', views.signup, name='signup'),
     path('terms', views.terms, name='terms'),
-    path('verify/<str:uidb64>/<str:token>', views.verify, name='verify'),
 
     # User profile
     path('profile/<str:username>', views.profile, name='profile'),
