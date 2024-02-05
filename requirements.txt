@@ -1,0 +1,6 @@
+# Django requirements
+django
+
+# Other requirements
+pillow
+gunicorn
