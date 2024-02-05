@@ -65,21 +65,21 @@ Data table for Respiratory Data
 """
 
 
-# class SustainedAttentionData(models.Model):
-#     # Override delete() to delete connected csv file
-#     def delete(self, *args, **kargs):
-#         import os
+class SustainedAttentionData(models.Model):
+    # Override delete() to delete connected csv file
+    def delete(self, *args, **kargs):
+        import os
 
-#         if self.csv_data:
-#             os.remove(os.path.join(MEDIA_ROOT, self.csv_data.path))
-#         super(RespiratoryGraphData, self).delete(*args, **kargs)
+        if self.csv_data:
+            os.remove(os.path.join(MEDIA_ROOT, self.csv_data.path))
+        super(RespiratoryGraphData, self).delete(*args, **kargs)
 
-#     user = models.ForeignKey(User, verbose_name="username", on_delete=models.PROTECT)
-#     date_created = models.DateTimeField(
-#         "date created", auto_now=False, auto_now_add=True
-#     )
-#     csv_data = models.FileField(
-#         "csv data file", upload_to=uuid_filepath, max_length=None, null=False
-#     )
-#     score = models.IntegerField("recorded points", default=0)
-#     note = models.TextField("user notes")
+    user = models.ForeignKey(User, verbose_name="username", on_delete=models.PROTECT)
+    date_created = models.DateTimeField(
+        "date created", auto_now=False, auto_now_add=True
+    )
+    csv_data = models.FileField(
+        "csv data file", upload_to=uuid_filepath, max_length=None, null=False
+    )
+    score = models.IntegerField("recorded points", default=0)
+    note = models.TextField("user notes")
