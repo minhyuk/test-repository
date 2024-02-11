@@ -11,7 +11,7 @@ urlpatterns = [
     path('rg/<str:username>', views.rg_inquiry, name='rg-inquiry'),
     path('rg/delete/<int:id>', views.rg_delete, name='rg-delete'),
     # Sustained Attention
-    # path('sa/', views.rg_record, name='sa-record'),
-    # path('sa/<str:username>', views.rg_inquiry, name='sa-inquiry'),
-    # path('sa/delete/<int:id>', views.rg_delete, name='sa-delete'),
+    path('sa/', views.sa_record, name='sa-record'),
+    path('sa/<str:username>', views.sa_inquiry, name='sa-inquiry'),
+    path('sa/delete/<int:id>', views.sa_delete, name='sa-delete'),
 ]
