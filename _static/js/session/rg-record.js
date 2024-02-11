@@ -1,19 +1,32 @@
-// JavaScript for stopwatch
+// Timestamps
 let stopwatchInterval;
 let stopwatchTime;
 let clockTime;
 
+// Stopwatch flags
 let recording = false;
+
+// Plotting Array
 const timeList = [];
 const valueList = [];
 const recordedData = [];
 
+// Stopwatch buttons
 const stopwatch = document.getElementById("stopwatch");
 const startStopButton = document.getElementById("startStopButton");
 const saveButton = document.getElementById("saveButton");
 const discardButton = document.getElementById("discardButton");
+
+// Recorded inputs
 const csvInput = document.getElementById("csvInput");
 const timeInput = document.getElementById("timeInput");
+
+// Audio effects
+let audioCountdown = new Audio("/static/sounds/countdown.mp3");
+let audioStart = new Audio("/static/sounds/start.mp3");
+let audioFinish = new Audio("/static/sounds/finish.mp3");
+let audioReward = new Audio("/static/sounds/reward.mp3");
+
 
 function formatTime(milliseconds) {
     const seconds = milliseconds / 1000;
@@ -22,12 +35,18 @@ function formatTime(milliseconds) {
     return `${seconds.toFixed(2)}`;
 }
 
+/**
+ * Run stopwatch
+ */
 startStopButton.addEventListener("click", () => {
     if (recording) {
         const csvContent = recordedData.map(data => data.join(",")).join("\n");
         csvInput.value = encodeURI(csvContent);
         timeInput.value = stopwatch.innerText;
 
+        audioFinish.play();
+
+        // Clear interval
         clearInterval(stopwatchInterval);
         startStopButton.innerText = "Start Recording";
         saveButton.disabled = false;
@@ -40,6 +59,8 @@ startStopButton.addEventListener("click", () => {
         timeList.length = 0;
         valueList.length = 0;
         clockTime = new Date().getTime();
+
+        audioStart.play();
 
         // Start interval
         stopwatchInterval = setInterval(() => {
@@ -64,10 +85,14 @@ startStopButton.addEventListener("click", () => {
     recording = !recording;
 });
 
+// Reset stopwatch text for discard button
 discardButton.addEventListener("click", () => {
     stopwatch.innerText = "0.00";
 });
 
+/**
+ * Draw chart for result modal
+ */
 var modalChart;
 
 function plotModal() {
