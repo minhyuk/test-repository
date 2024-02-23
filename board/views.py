@@ -39,5 +39,5 @@ def board_delete(request, id):
 
 def init():
     print("touch")
-    
+    print("touch")
     return
