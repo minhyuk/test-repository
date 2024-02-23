@@ -36,3 +36,6 @@ def board_delete(request, id):
 
     # Respond to (403)Forbidden if user does not match
     return HttpResponse(status=403)
+
+def init():
+    return
