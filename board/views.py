@@ -38,4 +38,6 @@ def board_delete(request, id):
     return HttpResponse(status=403)
 
 def init():
+    print("touch")
+    
     return
